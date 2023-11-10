@@ -48,7 +48,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Create env file
       run: |
-        echo "${{ secrets.ENV_FILE }}" > .env
+        echo "${{ secrets.ENV_FILE }}" > universal/.env
 
     - name: Install dependencies
       run: |
