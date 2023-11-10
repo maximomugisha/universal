@@ -22,6 +22,7 @@ jobs:
         database-port:
           - 5432
 
+
     services:
       postgres:
         image: postgres:latest
@@ -45,6 +46,10 @@ jobs:
       uses: actions/setup-python@v2.3.1
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Create env file
+      run: |
+        echo "${{ secrets.ENV_FILE }}" > .env
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
