@@ -12,11 +12,11 @@ jobs:
       matrix:
         python-version: [ 3.9]
         database-name:
-          - uni_db
+          - universal
         database-password:
-          - postgres
+          - UPbeat123
         database-user:
-          - postgres
+          - maximo
         database-host:
           - 127.0.0.1
         database-port:
