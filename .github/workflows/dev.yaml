@@ -3,9 +3,7 @@ name: Universal CI
 on: [push]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -82,6 +80,7 @@ jobs:
         export GITHUB_WORKFLOW=True
         export MODE="Test"
         docker-compose up -d --build
+
     - name: Run migrations
       run: |
         docker compose run backend python manage.py makemigrations
