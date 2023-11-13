@@ -105,6 +105,10 @@ jobs:
         GITHUB_WORKFLOW: True
         MODE: workflow
     - uses: actions/checkout@v2.4.0
+      # for docker
+    - name: Create env file
+      run: |
+        echo "${{ secrets.ENV_FILE }}" > .env
     - name: Build the images and start the containers
       run: |
         export GITHUB_WORKFLOW=True
