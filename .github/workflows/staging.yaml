@@ -79,6 +79,9 @@ jobs:
         export DATABASE_URL=postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
         export SECRET_KEY=test-secret-key
         export DEBUG=1
+    - name: Create env file
+      run: |
+        echo "${{ secrets.ENV_FILE }}" > .env
     - name: Run migrations
       run: |
         export DATABASE_URL=postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
