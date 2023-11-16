@@ -4,9 +4,11 @@ on: push
 
 jobs:
   execute_tests: #Job id
-    name: Install requirements and execute test
+    name: Universal App setup # Job name
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt update
         name: Update
+      - name: Checkout Repo COde
+        uses: actions/checkout@v3
 
