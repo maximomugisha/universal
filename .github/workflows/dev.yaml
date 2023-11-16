@@ -1,3 +1,8 @@
 name: Universal CI/CD
 
 on: Push
+
+jobs:
+execute_tests: #Job id
+name: Install requiremensts and execute test
+runs-on: ubuntu-latest
