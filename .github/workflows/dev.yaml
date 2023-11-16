@@ -8,5 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - name: Update
-     run: sudo apt update
-     
+        run: sudo apt update
