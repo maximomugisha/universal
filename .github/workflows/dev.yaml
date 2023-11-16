@@ -33,7 +33,7 @@ jobs:
       - name: Access Server
         uses: appleboy/ssh-action@master
         with:
-          host: 16.170.220.66
-          username: ubuntu
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ SECRETS.HOST_USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: echo hello world > hello_Maximo.txt
