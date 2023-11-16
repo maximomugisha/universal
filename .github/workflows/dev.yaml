@@ -7,8 +7,24 @@ jobs:
     name: Universal App setup # Job name
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt update
-        name: Update
-      - name: Checkout Repo COde
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
+      - name: Update
+        run: sudo apt update
+      - name: Set up python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.10
+      - name: Create .env
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+      - name: Build Docker images and start containers
+        run: |
+          docker compose up -d --build
+      - name: Make migrations
+        run: docker compose run backend python3 manage.py makemigrations
+      - name: Migrate one
+        run: docker compose run backend python3 manage.py migrate
+      - name: Migrate web
+        run: docker compose run backend python3 manage.py migrate website
+      - name: Run tests
+        run: docker compose run backend python3 manage.py test
