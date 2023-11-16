@@ -6,3 +6,7 @@ jobs:
   execute_tests: #Job id
     name: Install requiremensts and execute test
     runs-on: ubuntu-latest
+    steps:
+     - name: Update
+     run: sudo apt update
+     
