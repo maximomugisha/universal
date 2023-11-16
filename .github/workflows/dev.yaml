@@ -1,11 +1,12 @@
 name: Universal CI/CD
 
-on: Push
+on: push
 
 jobs:
   execute_tests: #Job id
-    name: Install requiremensts and execute test
+    name: Install requirements and execute test
     runs-on: ubuntu-latest
     steps:
-      - name: Update
-      run: sudo apt update
+      - run: sudo apt update
+        name: Update
+
