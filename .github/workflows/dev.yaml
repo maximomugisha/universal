@@ -1,0 +1,40 @@
+name: Universal CI/CD
+
+on:
+  [push, pull_request]
+
+jobs:
+  execute_tests: #Job id
+    name: Universal App setup # Job name
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update
+        run: sudo apt update
+      - name: Set up python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Create .env #updated the secrets to have db as the host for docker
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+      - name: Build Docker images and start containers
+        run: |
+          docker compose up -d --build
+      - name: Make migrations
+        run: docker compose run backend python3 manage.py makemigrations
+      - name: Migrate one
+        run: docker compose run backend python3 manage.py migrate
+      - name: MakeMigrate web
+        run: docker compose run backend python3 manage.py makemigrations website
+      - name: Migrate web
+        run: docker compose run backend python3 manage.py migrate website
+      - name: Run tests
+        run: docker compose run backend python3 manage.py test
+#      - name: Access Server
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST_IP }}
+#          username: ${{ SECRETS.HOST_USERNAME }}
+#          key: ${{ secrets.PRIVATE_KEY }}
+#          script: echo hello world > hello_Maximo.txt

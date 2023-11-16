@@ -13,6 +13,7 @@ import string
 from pathlib import Path
 import os
 from django.utils.text import gettext_lazy as _
+from decouple import config  # to access env variables
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ly(72sv)9q$40jz*sj^bs%b)bxpn0d=o*+2t#e_i7!_r7%u!e%'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -94,10 +95,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'universal.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1",
-    'http://45.79.253.187',
-]
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1']
 CORS_ALLOW_CREDENTIALS = False
 CORS_ALLOW_HEADERS = [
     'accept',
@@ -115,28 +113,15 @@ CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    # for docker
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'universal',
-    #     'USER': 'maximo',
-    #     'PASSWORD': 'UPbeat123',
-    #     'HOST': 'database',
-    #     'PORT': '5432',
-    # }
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'universal',
-        'USER': 'maximo',
-        'PASSWORD': 'UPbeat123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
 }
 
 TRENCH_AUTH = {

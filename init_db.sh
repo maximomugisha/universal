@@ -1,0 +1,7 @@
+CREATE USER maximo;
+
+CREATE DATABASE universal;
+GRANT ALL PRIVILEGES ON DATABASE universal TO maximo;
+
+CREATE DATABASE universal_test;
+GRANT ALL PRIVILEGES ON DATABASE universal_test TO maximo;

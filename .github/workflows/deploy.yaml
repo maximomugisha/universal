@@ -1,0 +1,25 @@
+name: Deploy To Amazon EC2 Instance
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy branch main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout and restart the server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.HOST_USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/universal
+            git checkout — *
+            git checkout main
+            git pull origin main
+            docker compose up -d --build
+#            sudo kill $(ps aux | grep gunicorn | grep -v grep | awk ‘{print $2}’)
+#            sudo /home/ubuntu/universal/.venv/bin/gunicorn — daemon —  workers=4 mysite.wsgi:application -b 0.0.0.0:80
