@@ -24,6 +24,8 @@ jobs:
         run: docker compose run backend python3 manage.py makemigrations
       - name: Migrate one
         run: docker compose run backend python3 manage.py migrate
+      - name: MakeMigrate web
+        run: docker compose run backend python3 manage.py makemigrations website
       - name: Migrate web
         run: docker compose run backend python3 manage.py migrate website
       - name: Run tests
